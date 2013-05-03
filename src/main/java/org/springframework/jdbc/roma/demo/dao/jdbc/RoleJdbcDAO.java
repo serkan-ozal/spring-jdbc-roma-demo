@@ -26,6 +26,9 @@ import org.springframework.jdbc.roma.demo.dao.RoleDAO;
 import org.springframework.jdbc.roma.demo.model.Role;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Serkan ÖZAL
+ */
 @Repository(value="roleDAO")
 public class RoleJdbcDAO extends BaseJdbcDAO implements RoleDAO {
 

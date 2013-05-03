@@ -23,6 +23,9 @@ import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class User {
 
 	@RowMapperField(columnName="id")
@@ -37,6 +40,8 @@ public class User {
 	private String lastname;
 	@RowMapperField(columnName="enabled")
 	private boolean enabled = true;
+	@RowMapperField(columnName="gender")
+	private Gender gender;
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
@@ -90,6 +95,14 @@ public class User {
 	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public Gender getGender() {
+		return gender;
+	}
+	
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public List<Role> getRoles() {

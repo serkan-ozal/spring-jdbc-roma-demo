@@ -26,6 +26,9 @@ import org.springframework.jdbc.roma.demo.model.Role;
 import org.springframework.jdbc.roma.demo.model.User;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+/**
+ * @author Serkan ÖZAL
+ */
 public class RowMapperDemo {
 
 	public static void main(String[] args) throws Exception {
