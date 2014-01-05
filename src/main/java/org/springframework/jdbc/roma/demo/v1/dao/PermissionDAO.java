@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao;
+package org.springframework.jdbc.roma.demo.v1.dao;
 
 import java.util.List;
 
-import org.springframework.jdbc.roma.demo.model.Role;
+import org.springframework.jdbc.roma.demo.v1.model.Permission;
 
 /**
  * @author Serkan ÖZAL
  */
-public interface RoleDAO {
-
-	public Role get(Long id);
-	public void add(Role role) throws Exception;
-	public List<Role> list();
-	public List<Role> getUserRoleList(Long userId);
-	public void addUserRole(Long userId, Role role) throws Exception;
+public interface PermissionDAO {
+	
+	public Permission get(Long id);
+	public void add(Permission perm) throws Exception;
+	public List<Permission> list();
+	public List<Permission> getRolePermissionList(Long roleId);
+	public void addRolePermission(Long roleId, Permission perm) throws Exception;
+	public List<Permission> getUserPermissionList(Long userId);
 
 }

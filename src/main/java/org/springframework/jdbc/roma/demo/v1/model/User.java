@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.model;
+package org.springframework.jdbc.roma.demo.v1.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
+import org.springframework.jdbc.roma.demo.common.model.Gender;
 
 /**
  * @author Serkan ÖZAL
@@ -45,7 +46,7 @@ public class User {
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
-						provideCode="@{roleDAO}.getUserRoleList(${id})"),
+						provideCode="@{roleDAO_v1}.getUserRoleList(${id})"),
 			lazy = true)
 	private List<Role> roles = new ArrayList<Role>();
 	
@@ -119,6 +120,16 @@ public class User {
 	
 	public void removeRole(Role role) {
 		roles.remove(role);
+	}
+	
+	@Override
+	public String toString() {
+		return 
+				"Username   : " + username 	+ "\n" +
+				"Password   : " + password 	+ "\n" +
+				"First Name : " + firstname + "\n" +
+				"Last Name  : " + lastname 	+ "\n" +
+				"Enabled    : " + enabled;
 	}
 	
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao.jdbc;
+package org.springframework.jdbc.roma.demo.v2.dao.jdbc;
 
 import java.util.List;
 
@@ -22,14 +22,15 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.roma.demo.dao.PermissionDAO;
-import org.springframework.jdbc.roma.demo.model.Permission;
+import org.springframework.jdbc.roma.demo.common.dao.BaseJdbcDAO;
+import org.springframework.jdbc.roma.demo.v2.dao.PermissionDAO;
+import org.springframework.jdbc.roma.demo.v2.model.Permission;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author Serkan ÖZAL
  */
-@Repository(value="permissionDAO")
+@Repository(value="permissionDAO_v2")
 public class PermissionJdbcDAO extends BaseJdbcDAO implements PermissionDAO {
 
 	private RowMapper<Permission> permRowMapper;

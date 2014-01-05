@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao.jdbc;
+package org.springframework.jdbc.roma.demo.v1.dao.jdbc;
 
 import java.util.List;
 
@@ -22,14 +22,15 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.roma.demo.dao.RoleDAO;
-import org.springframework.jdbc.roma.demo.model.Role;
+import org.springframework.jdbc.roma.demo.common.dao.BaseJdbcDAO;
+import org.springframework.jdbc.roma.demo.v1.dao.RoleDAO;
+import org.springframework.jdbc.roma.demo.v1.model.Role;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author Serkan ÖZAL
  */
-@Repository(value="roleDAO")
+@Repository(value="roleDAO_v1")
 public class RoleJdbcDAO extends BaseJdbcDAO implements RoleDAO {
 
 	private RowMapper<Role> roleRowMapper;

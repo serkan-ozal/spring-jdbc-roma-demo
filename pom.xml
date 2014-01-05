@@ -18,7 +18,8 @@
         <maven.resources.plugin.version>2.4</maven.resources.plugin.version>
         <maven.surefire.plugin.version>2.9</maven.surefire.plugin.version>
 		
-		<spring.jdbc.roma.version>1.0.0-RELEASE</spring.jdbc.roma.version>
+		<spring.jdbc.roma.version>2.0.0-SNAPSHOT</spring.jdbc.roma.version>
+		<c3p0.version>0.9.1.2</c3p0.version>
 
     </properties>
   
@@ -63,6 +64,11 @@
 			<artifactId>spring-jdbc-roma</artifactId>
 			<version>${spring.jdbc.roma.version}</version>
 		</dependency>
+		<dependency>
+ 			<groupId>c3p0</groupId>
+ 			<artifactId>c3p0</artifactId>
+ 			<version>${c3p0.version}</version> 
+		</dependency> 
 	</dependencies>
     
     <repositories>

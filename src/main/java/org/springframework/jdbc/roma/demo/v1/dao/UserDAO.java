@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao.jdbc;
+package org.springframework.jdbc.roma.demo.v1.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.roma.service.RowMapperService;
+import java.util.List;
+
+import org.springframework.jdbc.roma.demo.v1.model.User;
 
 /**
  * @author Serkan ÖZAL
  */
-public class BaseJdbcDAO {
+public interface UserDAO {
 	
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	public User get(Long id);
+	public void add(User user) throws Exception;
+	public List<User> list();
+	public List<User> getUserListForRole(Long roleId);
 	
-	@Autowired
-	protected JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	protected RowMapperService rowMapperService;
-
 }

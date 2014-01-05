@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.model;
+package org.springframework.jdbc.roma.demo.v2.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperField;
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperObjectField;
-import org.springframework.jdbc.roma.config.provider.annotation.RowMapperSpringProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
 
 /**
  * @author Serkan ÖZAL
  */
 public class Role {
 
-	@RowMapperField(columnName="id")
 	private Long id;
-	@RowMapperField(columnName="name")
 	private String name;
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
-						provideCode="@{permissionDAO}.getRolePermissionList(${id})"),
+						provideCode="@{permissionDAO_v2}.getRolePermissionList(${id})"),
 			lazy = true)
 	private List<Permission> permissions = new ArrayList<Permission>();
 	
@@ -69,6 +66,11 @@ public class Role {
 	
 	public void removePermission(Permission permission) {
 		permissions.remove(permission);
+	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + name;
 	}
 	
 }

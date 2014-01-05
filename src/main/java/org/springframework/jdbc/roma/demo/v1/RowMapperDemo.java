@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo;
+package org.springframework.jdbc.roma.demo.v1;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.roma.demo.dao.UserDAO;
-import org.springframework.jdbc.roma.demo.model.Permission;
-import org.springframework.jdbc.roma.demo.model.Role;
-import org.springframework.jdbc.roma.demo.model.User;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.jdbc.roma.demo.v1.dao.UserDAO;
+import org.springframework.jdbc.roma.demo.v1.model.Permission;
+import org.springframework.jdbc.roma.demo.v1.model.Role;
+import org.springframework.jdbc.roma.demo.v1.model.User;
 
 /**
  * @author Serkan ÖZAL
@@ -34,28 +31,22 @@ public class RowMapperDemo {
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("/roma-demo-context.xml");
 		
-		initDB(context);
+		// DB is initialized by DbAwareBeanPostProcessor
 		
 		final UserDAO userDAO = context.getBean(UserDAO.class);
 		
 		StringBuffer sb = new StringBuffer();
 		for (User u : userDAO.list()) {
-			sb.append("Username: " + u.getUsername()).append("\n");
-			sb.append("Roles: ").append("\n");
+			sb.append("User:\n" + "\t" + u.toString().replace("\n", "\n\t")).append("\n");
+			sb.append("\tRoles      : ").append("\n");
 			for (Role r : u.getRoles()) {
-				sb.append("\t" + "Role Name: " + r.getName()).append("\n");
+				sb.append("\t\t" + "Role Name: " + r.getName()).append("\n");
 				for (Permission p : r.getPermissions()) {
-					sb.append("\t\t" + "Permission Name: " + p.getName()).append("\n");
+					sb.append("\t\t\t" + "Permission Name: " + p.getName()).append("\n");
 				}
 			}
 		}
 		System.out.println(sb.toString());
-	}
-	
-	private static void initDB(ApplicationContext context) {
-		JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
-		JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbCreationScripts.sql"), true);
-		JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbInsertionScripts.sql"), true);
 	}
 
 }

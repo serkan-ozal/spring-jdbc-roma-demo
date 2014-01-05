@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.model;
+package org.springframework.jdbc.roma.demo.v2.dao;
+
+import java.util.List;
+
+import org.springframework.jdbc.roma.demo.v2.model.Role;
 
 /**
  * @author Serkan ÖZAL
  */
-public enum Gender {
+public interface RoleDAO {
 
-	FEMALE,
-	MALE
-	
+	public Role get(Long id);
+	public void add(Role role) throws Exception;
+	public List<Role> list();
+	public List<Role> getUserRoleList(Long userId);
+	public void addUserRole(Long userId, Role role) throws Exception;
+
 }

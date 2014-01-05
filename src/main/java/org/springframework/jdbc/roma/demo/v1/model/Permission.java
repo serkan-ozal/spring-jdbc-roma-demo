@@ -14,20 +14,39 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao;
+package org.springframework.jdbc.roma.demo.v1.model;
 
-import java.util.List;
-
-import org.springframework.jdbc.roma.demo.model.User;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperField;
 
 /**
  * @author Serkan ÖZAL
  */
-public interface UserDAO {
+public class Permission {
+
+	@RowMapperField(columnName="id")
+	private Long id;
+	@RowMapperField(columnName="name")
+	private String name;
 	
-	public User get(Long id);
-	public void add(User user) throws Exception;
-	public List<User> list();
-	public List<User> getUserListForRole(Long roleId);
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + name;
+	}
 	
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.roma.demo.dao.jdbc;
+package org.springframework.jdbc.roma.demo.v2.dao.jdbc;
 
 import java.sql.Types;
 import java.util.List;
@@ -23,14 +23,15 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.roma.demo.dao.UserDAO;
-import org.springframework.jdbc.roma.demo.model.User;
+import org.springframework.jdbc.roma.demo.common.dao.BaseJdbcDAO;
+import org.springframework.jdbc.roma.demo.v2.dao.UserDAO;
+import org.springframework.jdbc.roma.demo.v2.model.User;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author Serkan ÖZAL
  */
-@Repository(value="userDAO")
+@Repository(value="userDAO_v2")
 public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 
 	private RowMapper<User> userRowMapper;
