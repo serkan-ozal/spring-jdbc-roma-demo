@@ -14,27 +14,8 @@
         http://www.springframework.org/schema/tx 
      	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
     
-    <import resource="classpath*:roma-context.xml"/>
-    
     <context:component-scan base-package="org.springframework.jdbc.romademo.common,org.springframework.jdbc.romademo.v1"/>
     
-    <bean id="defaultConfigs" class="org.springframework.jdbc.roma.api.config.DefaultConfigs">
-		<property name="defaultDataSourceName" value="dataSource"/>
-	</bean>
-    
-    <tx:annotation-driven/>
-    
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass" value="org.hsqldb.jdbcDriver"/>
-		<property name="jdbcUrl" value="jdbc:hsqldb:mem:roma;sql.syntax_pgs=true"/>
-		<property name="user" value="sa"/>
-		<property name="password" value=""/>
-	</bean>
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<constructor-arg index="0" ref="dataSource" />
-    </bean>
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	  	<property name="dataSource" ref="dataSource"/>
-	</bean>
+    <import resource="classpath*:roma-demo-context.xml"/>
     
 </beans>
