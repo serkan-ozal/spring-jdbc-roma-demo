@@ -58,7 +58,8 @@ public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 		jdbcTemplate.update(
 			"INSERT INTO USER " + 
 			"(" + 
-				"username, password, firstname, lastname, enabled, gender, language, occupation, education" +
+				"username, password, firstname, lastname, enabled, gender, " + 
+				"language, occupation, education, blood_type, marital_status" +
 			") " + 
 			"VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
 			new Object[] {
@@ -69,6 +70,8 @@ public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 				user.getLanguage() == null ? 0 : user.getLanguage().getCode(),			
 				user.getOccupation() == null ? 0 : user.getOccupation().getCode(),
 				user.getEducation() == null ? 0 : user.getEducation().getCode(),
+				user.getBloodType() == null ? 0 : user.getBloodType().getCode(),	
+				user.getMaritalStatus() == null ? null : user.getMaritalStatus().name(),
 			},
 			new int[] {
 				Types.VARCHAR,
@@ -79,7 +82,9 @@ public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 				Types.NUMERIC,
 				Types.NUMERIC,
 				Types.NUMERIC,
-				Types.NUMERIC
+				Types.NUMERIC,
+				Types.NUMERIC,
+				Types.VARCHAR
 			});
 	}
 

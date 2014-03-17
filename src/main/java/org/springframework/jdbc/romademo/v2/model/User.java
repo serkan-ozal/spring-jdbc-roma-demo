@@ -24,10 +24,16 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpr
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueNumericMapping;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueStringMapping;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringMapper;
+import org.springframework.jdbc.romademo.common.model.BloodType;
 import org.springframework.jdbc.romademo.common.model.Education;
 import org.springframework.jdbc.romademo.common.model.Gender;
 import org.springframework.jdbc.romademo.common.model.Language;
+import org.springframework.jdbc.romademo.common.model.MaritalStatus;
 import org.springframework.jdbc.romademo.common.model.Occupation;
+import org.springframework.jdbc.romademo.v2.mapper.BloodTypeEnumMapper;
+import org.springframework.jdbc.romademo.v2.mapper.MaritalStatusEnumMapper;
 
 /**
  * @author Serkan ÖZAL
@@ -72,6 +78,16 @@ public class User {
 								@RowMapperEnumNumericValueStringMapping(mappingValue = "OTHER" , value = 9)
 						}))
 	private Education education;
+	@RowMapperEnumField(
+			mapViaNumericMapper = 
+				@RowMapperEnumNumericMapper(
+							mapper = BloodTypeEnumMapper.class))
+	private BloodType bloodType;
+	@RowMapperEnumField(
+			mapViaStringMapper = 
+				@RowMapperEnumStringMapper(
+							mapper = MaritalStatusEnumMapper.class))
+	private MaritalStatus maritalStatus;
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
@@ -160,6 +176,22 @@ public class User {
 		this.education = education;
 	}
 	
+	public BloodType getBloodType() {
+		return bloodType;
+	}
+	
+	public void setBloodType(BloodType bloodType) {
+		this.bloodType = bloodType;
+	}
+	
+	public MaritalStatus getMaritalStatus() {
+		return maritalStatus;
+	}
+	
+	public void setMaritalStatus(MaritalStatus maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+	
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -179,15 +211,17 @@ public class User {
 	@Override
 	public String toString() {
 		return 
-				"Username   : " + username 			+ "\n" +
-				"Password   : " + password 			+ "\n" +
-				"First Name : " + firstname 		+ "\n" +
-				"Last Name  : " + lastname 			+ "\n" +
-				"Enabled    : " + enabled 			+ "\n" +
-				"Gender     : " + gender 			+ "\n" +
-				"Language   : " + language 			+ "\n" +
-				"Occupation : " + occupation 		+ "\n" +
-				"Education  : " + education;
+				"Username       : " + username 			+ "\n" +
+				"Password       : " + password 			+ "\n" +
+				"First Name     : " + firstname 		+ "\n" +
+				"Last Name      : " + lastname 			+ "\n" +
+				"Enabled        : " + enabled 			+ "\n" +
+				"Gender         : " + gender 			+ "\n" +
+				"Language       : " + language 			+ "\n" +
+				"Occupation     : " + occupation 		+ "\n" +
+				"Education      : " + education 		+ "\n" +
+				"Blood Type     : " + bloodType			+ "\n" +
+				"Marital Status : " + maritalStatus;
 	}
 	
 }
