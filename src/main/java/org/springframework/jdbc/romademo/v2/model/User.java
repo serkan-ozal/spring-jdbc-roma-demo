@@ -16,14 +16,18 @@
 
 package org.springframework.jdbc.romademo.v2.model;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueNumericMapping;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueStringMapping;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringValueNumericMapping;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringMapper;
 import org.springframework.jdbc.romademo.common.model.BloodType;
@@ -32,12 +36,16 @@ import org.springframework.jdbc.romademo.common.model.Gender;
 import org.springframework.jdbc.romademo.common.model.Language;
 import org.springframework.jdbc.romademo.common.model.MaritalStatus;
 import org.springframework.jdbc.romademo.common.model.Occupation;
+import org.springframework.jdbc.romademo.common.model.Religion;
 import org.springframework.jdbc.romademo.v2.mapper.BloodTypeEnumMapper;
 import org.springframework.jdbc.romademo.v2.mapper.MaritalStatusEnumMapper;
+import org.springframework.jdbc.romademo.v2.processor.UserObjectProcessor;
+import org.springframework.jdbc.romademo.v2.processor.UserPhoneNumberObjectFieldProcessor;
 
 /**
  * @author Serkan ÖZAL
  */
+@RowMapperClass(objectProcessor = UserObjectProcessor.class)
 public class User {
 
 	private Long id;
@@ -45,8 +53,14 @@ public class User {
 	private String password;
 	private String firstname;
 	private String lastname;
+	@RowMapperObjectField(
+		provideViaCustomProvider = 
+			@RowMapperCustomProvider(
+					objectFieldProcessor = UserPhoneNumberObjectFieldProcessor.class))
+	private String phoneNumber;
 	private boolean enabled = true;
 	private Gender gender;
+	private Date birthDate;
 	@RowMapperEnumField(enumStartValue = 1)
 	private Language language;
 	@RowMapperEnumField(
@@ -66,16 +80,16 @@ public class User {
 	@RowMapperEnumField(
 			mapViaAutoMapper = 
 				@RowMapperEnumAutoMapper(
-						mapViaNumericValueStringMappings = {
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "PRIMARY_SCHOOL" , value = 1),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "SECONDARY_SCHOOL" , value = 2),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "HIGH_SCHOOL" , value = 3),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "BACHELOR" , value = 4),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "MASTER" , value = 5),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "PHD" , value = 6),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "ASSOCIATE_PROFESSOR" , value = 7),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "PROFESSOR" , value = 8),
-								@RowMapperEnumNumericValueStringMapping(mappingValue = "OTHER" , value = 9)
+						mapViaStringValueNumericMappings = {
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 0, value = "PRIMARY_SCHOOL"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 1, value = "SECONDARY_SCHOOL"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 2, value = "HIGH_SCHOOL"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 3, value = "BACHELOR"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 4, value = "MASTER"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 5, value = "PHD" ),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 6, value = "ASSOCIATE_PROFESSOR"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 7, value = "PROFESSOR"),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 8, value = "OTHER")
 						}))
 	private Education education;
 	@RowMapperEnumField(
@@ -88,6 +102,8 @@ public class User {
 				@RowMapperEnumStringMapper(
 							mapper = MaritalStatusEnumMapper.class))
 	private MaritalStatus maritalStatus;
+	@RowMapperEnumField(useStringValue = true)
+	private Religion religion;
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
@@ -95,6 +111,9 @@ public class User {
 			fieldType = Role.class,			
 			lazy = true)
 	private List<Role> roles;
+	
+	@RowMapperIgnoreField // Or define field as transient
+	private byte age;
 	
 	public Long getId() {
 		return id;
@@ -136,6 +155,14 @@ public class User {
 		this.lastname = lastname;
 	}
 	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -150,6 +177,14 @@ public class User {
 	
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 	
 	public Language getLanguage() {
@@ -192,6 +227,14 @@ public class User {
 		this.maritalStatus = maritalStatus;
 	}
 	
+	public Religion getReligion() {
+		return religion;
+	}
+	
+	public void setReligion(Religion religion) {
+		this.religion = religion;
+	}
+	
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -208,6 +251,14 @@ public class User {
 		roles.remove(role);
 	}
 	
+	public byte getAge() {
+		return age;
+	}
+	
+	public void setAge(byte age) {
+		this.age = age;
+	}
+	
 	@Override
 	public String toString() {
 		return 
@@ -215,13 +266,17 @@ public class User {
 				"Password       : " + password 			+ "\n" +
 				"First Name     : " + firstname 		+ "\n" +
 				"Last Name      : " + lastname 			+ "\n" +
+				"Phone Number   : " + phoneNumber 		+ "\n" +
 				"Enabled        : " + enabled 			+ "\n" +
 				"Gender         : " + gender 			+ "\n" +
+				"Birth Date     : " + birthDate 		+ "\n" +
 				"Language       : " + language 			+ "\n" +
 				"Occupation     : " + occupation 		+ "\n" +
 				"Education      : " + education 		+ "\n" +
 				"Blood Type     : " + bloodType			+ "\n" +
-				"Marital Status : " + maritalStatus;
+				"Marital Status : " + maritalStatus		+ "\n" +
+				"Religion       : " + religion			+ "\n" +
+				"Age            : " + age;
 	}
 	
 }

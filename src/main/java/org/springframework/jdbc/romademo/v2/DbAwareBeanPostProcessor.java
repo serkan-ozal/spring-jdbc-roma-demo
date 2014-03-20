@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.romademo.common;
+package org.springframework.jdbc.romademo.v2;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -38,8 +38,8 @@ public class DbAwareBeanPostProcessor implements BeanPostProcessor {
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		if (bean instanceof JdbcTemplate) {
 			JdbcTemplate jdbcTemplate = (JdbcTemplate)bean;
-			JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbCreationScripts.sql"), true);
-			JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/dbInsertionScripts.sql"), true);
+			JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/db-creation-scripts-v2.sql"), true);
+			JdbcTestUtils.executeSqlScript(jdbcTemplate, new ClassPathResource("/db/db-insertion-scripts-v2.sql"), true);
 		}
 		return bean;
 	}

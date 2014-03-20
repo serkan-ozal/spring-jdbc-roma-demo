@@ -6,12 +6,7 @@ CREATE TABLE USER
     firstname		VARCHAR(128)	NOT NULL,
     lastname		VARCHAR(128)	NOT NULL,
     enabled			INTEGER         NOT NULL,
-    gender			INTEGER         NOT NULL,
-    language		INTEGER,
-    occupation		INTEGER,
-   	education		INTEGER,
-    blood_type		INTEGER,
-    marital_status	VARCHAR(20),
+    gender			INTEGER         NOT NULL
 );
 
 ALTER TABLE USER ADD CONSTRAINT PK_USER PRIMARY KEY

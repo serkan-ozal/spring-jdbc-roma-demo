@@ -19,16 +19,14 @@ package org.springframework.jdbc.romademo.common.model;
 /**
  * @author Serkan ÖZAL
  */
-public enum Education {
+public enum Religion {
 
-	PRIMARY_SCHOOL,
-	SECONDARY_SCHOOL,
-	HIGH_SCHOOL,
-	BACHELOR,
-	MASTER,
-	PHD,
-	ASSOCIATE_PROFESSOR,
-	PROFESSOR,
+	MUSLIM,
+	JEWISH,
+	CHRISTIAN_CAHTOLICS,
+	CHRISTIAN_ORTHODOX,
+	CHRISTIAN_PROTESTANT,
+	ATHEIST,
 	OTHER;
 
 }

@@ -69,9 +69,11 @@ public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 				user.getGender() == null ? 0 : user.getGender().ordinal(),
 				user.getLanguage() == null ? 0 : user.getLanguage().getCode(),			
 				user.getOccupation() == null ? 0 : user.getOccupation().getCode(),
-				user.getEducation() == null ? 0 : user.getEducation().getCode(),
+				user.getEducation() == null ? 0 : user.getEducation().name(),
 				user.getBloodType() == null ? 0 : user.getBloodType().getCode(),	
 				user.getMaritalStatus() == null ? null : user.getMaritalStatus().name(),
+				user.getReligion() == null ? null : user.getReligion().name(),
+				user.getBirthDate() == null ? null : user.getBirthDate(),
 			},
 			new int[] {
 				Types.VARCHAR,
@@ -82,9 +84,11 @@ public class UserJdbcDAO extends BaseJdbcDAO implements UserDAO {
 				Types.NUMERIC,
 				Types.NUMERIC,
 				Types.NUMERIC,
+				Types.VARCHAR,
 				Types.NUMERIC,
-				Types.NUMERIC,
-				Types.VARCHAR
+				Types.VARCHAR,
+				Types.VARCHAR,
+				Types.DATE
 			});
 	}
 

@@ -29,6 +29,7 @@ import org.springframework.jdbc.romademo.v1.model.User;
 public class RowMapperDemo {
 
 	public static void main(String[] args) throws Exception {
+		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("/roma-demo-context-v1.xml");
 		
 		// DB is initialized by DbAwareBeanPostProcessor

@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.romademo.common.model;
+package org.springframework.jdbc.romademo.v2.processor;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.roma.api.processor.RowMapperObjectFieldProcessor;
+import org.springframework.jdbc.romademo.v2.model.User;
 
 /**
  * @author Serkan ÖZAL
  */
-public enum Education {
+public class UserPhoneNumberObjectFieldProcessor implements RowMapperObjectFieldProcessor<User> {
 
-	PRIMARY_SCHOOL,
-	SECONDARY_SCHOOL,
-	HIGH_SCHOOL,
-	BACHELOR,
-	MASTER,
-	PHD,
-	ASSOCIATE_PROFESSOR,
-	PROFESSOR,
-	OTHER;
+	@Override
+	public void processObjectField(User user, String fieldName, ResultSet rs, int rowNum) {
+		try {
+			user.setPhoneNumber(rs.getString("phone_number"));
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

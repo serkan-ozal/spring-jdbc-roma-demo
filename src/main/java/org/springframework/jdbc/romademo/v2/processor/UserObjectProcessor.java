@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.romademo.common.model;
+package org.springframework.jdbc.romademo.v2.processor;
+
+import java.sql.ResultSet;
+import java.util.Calendar;
+
+import org.springframework.jdbc.roma.api.processor.RowMapperObjectProcessor;
+import org.springframework.jdbc.romademo.v2.model.User;
 
 /**
  * @author Serkan ÖZAL
  */
-public enum Education {
+public class UserObjectProcessor implements RowMapperObjectProcessor<User> {
 
-	PRIMARY_SCHOOL,
-	SECONDARY_SCHOOL,
-	HIGH_SCHOOL,
-	BACHELOR,
-	MASTER,
-	PHD,
-	ASSOCIATE_PROFESSOR,
-	PROFESSOR,
-	OTHER;
+	@SuppressWarnings("deprecation")
+	@Override
+	public void processObject(User user, ResultSet rs, int rowNum) {
+		if (user.getBirthDate() != null) {
+			user.setAge((byte)(Calendar.getInstance().getTime().getYear() - user.getBirthDate().getYear()));
+		}
+	}
 
 }

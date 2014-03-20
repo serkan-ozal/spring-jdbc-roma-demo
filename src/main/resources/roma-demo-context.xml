@@ -15,9 +15,7 @@
      	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
     
     <import resource="classpath*:roma-context.xml"/>
-    
-    <context:component-scan base-package="org.springframework.jdbc.romademo.common,org.springframework.jdbc.romademo.v1"/>
-    
+
     <bean id="defaultConfigs" class="org.springframework.jdbc.roma.api.config.DefaultConfigs">
 		<property name="defaultDataSourceName" value="dataSource"/>
 	</bean>
