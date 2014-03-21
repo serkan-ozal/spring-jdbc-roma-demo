@@ -5,6 +5,9 @@ CREATE TABLE USER
     password		VARCHAR(128)	NOT NULL,
     firstname		VARCHAR(128)	NOT NULL,
     lastname		VARCHAR(128)	NOT NULL,
+    phone_number    VARCHAR(20),
+    city            VARCHAR(20),
+    country         VARCHAR(50),
     enabled			INTEGER         NOT NULL,
     gender			INTEGER         NOT NULL,
     language		INTEGER,
@@ -13,8 +16,7 @@ CREATE TABLE USER
     blood_type		INTEGER,
     marital_status	VARCHAR(20),
     religion        VARCHAR(20),
-    birth_date      DATE,
-    phone_number    VARCHAR(20)
+    birth_date      DATE
 );
 
 ALTER TABLE USER ADD CONSTRAINT PK_USER PRIMARY KEY

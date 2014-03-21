@@ -23,6 +23,7 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCla
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperImplementationProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
@@ -30,6 +31,7 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnu
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringValueNumericMapping;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringMapper;
+import org.springframework.jdbc.romademo.common.model.Address;
 import org.springframework.jdbc.romademo.common.model.BloodType;
 import org.springframework.jdbc.romademo.common.model.Education;
 import org.springframework.jdbc.romademo.common.model.Gender;
@@ -58,6 +60,12 @@ public class User {
 			@RowMapperCustomProvider(
 					objectFieldProcessor = UserPhoneNumberObjectFieldProcessor.class))
 	private String phoneNumber;
+	@RowMapperObjectField(
+		provideViaImplementationProvider = 
+			@RowMapperImplementationProvider(
+					provideCode = "new Address(&{[string]city}, &{[string]country})",
+					usedClasses = {Address.class}))
+	private Address address;
 	private boolean enabled = true;
 	private Gender gender;
 	private Date birthDate;
@@ -161,6 +169,14 @@ public class User {
 	
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public Address getAddress() {
+		return address;
+	}
+	
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	public boolean isEnabled() {
@@ -267,6 +283,7 @@ public class User {
 				"First Name     : " + firstname 		+ "\n" +
 				"Last Name      : " + lastname 			+ "\n" +
 				"Phone Number   : " + phoneNumber 		+ "\n" +
+				"Address        : " + address 			+ "\n" +
 				"Enabled        : " + enabled 			+ "\n" +
 				"Gender         : " + gender 			+ "\n" +
 				"Birth Date     : " + birthDate 		+ "\n" +
