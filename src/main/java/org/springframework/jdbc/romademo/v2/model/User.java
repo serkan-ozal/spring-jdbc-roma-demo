@@ -22,15 +22,15 @@ import java.util.List;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueNumericMapping;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringValueNumericMapping;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperImplementationProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericValueNumericMapping;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringValueNumericMapping;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringMapper;
 import org.springframework.jdbc.romademo.common.model.Address;
 import org.springframework.jdbc.romademo.common.model.BloodType;
 import org.springframework.jdbc.romademo.common.model.Education;
@@ -39,10 +39,10 @@ import org.springframework.jdbc.romademo.common.model.Language;
 import org.springframework.jdbc.romademo.common.model.MaritalStatus;
 import org.springframework.jdbc.romademo.common.model.Occupation;
 import org.springframework.jdbc.romademo.common.model.Religion;
+import org.springframework.jdbc.romademo.v2.custom.UserObjectProcessor;
+import org.springframework.jdbc.romademo.v2.custom.UserPhoneNumberObjectFieldProcessor;
 import org.springframework.jdbc.romademo.v2.mapper.BloodTypeEnumMapper;
 import org.springframework.jdbc.romademo.v2.mapper.MaritalStatusEnumMapper;
-import org.springframework.jdbc.romademo.v2.processor.UserObjectProcessor;
-import org.springframework.jdbc.romademo.v2.processor.UserPhoneNumberObjectFieldProcessor;
 
 /**
  * @author Serkan ÖZAL

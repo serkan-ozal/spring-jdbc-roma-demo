@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.romademo.v2.processor;
+package org.springframework.jdbc.romademo.v2.custom;
 
 import java.sql.ResultSet;
-import java.util.Calendar;
+import java.sql.SQLException;
 
-import org.springframework.jdbc.roma.api.processor.RowMapperObjectProcessor;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider.RowMapperObjectFieldProcessor;
 import org.springframework.jdbc.romademo.v2.model.User;
 
 /**
  * @author Serkan ÖZAL
  */
-public class UserObjectProcessor implements RowMapperObjectProcessor<User> {
+public class UserPhoneNumberObjectFieldProcessor implements RowMapperObjectFieldProcessor<User> {
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void processObject(User user, ResultSet rs, int rowNum) {
-		if (user.getBirthDate() != null) {
-			user.setAge((byte)(Calendar.getInstance().getTime().getYear() - user.getBirthDate().getYear()));
+	public void processObjectField(User user, String fieldName, ResultSet rs, int rowNum) {
+		try {
+			user.setPhoneNumber(rs.getString("phone_number"));
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -18,12 +18,15 @@ package org.springframework.jdbc.romademo.v2.model;
 
 import java.util.List;
 
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSqlProvider;
+import org.springframework.jdbc.romademo.v2.custom.RoleObjectCreater;
 
 /**
  * @author Serkan ÖZAL
  */
+@RowMapperClass(objectCreater = RoleObjectCreater.class)
 public class Role {
 
 	private Long id;
