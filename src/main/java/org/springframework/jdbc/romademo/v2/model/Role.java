@@ -38,8 +38,8 @@ public class Role {
 	                    "SELECT p.* FROM PERMISSION p WHERE p.ID IN " +
 	                    "(" +
 	                        "SELECT rp.PERMISSION_ID FROM role_permission rp WHERE rp.ROLE_ID = ${id}" +
-	                    ") ORDER BY p.name"),
-	        fieldType = Permission.class,		    
+	                    ") ORDER BY p.name",
+	                entityType = Permission.class),	    
 	        lazy = true)
 	private List<Permission> permissions;
 	

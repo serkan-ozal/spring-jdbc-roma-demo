@@ -115,8 +115,7 @@ public class User {
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
-						provideCode="@{roleDAO_v2}.getUserRoleList(${id})"),
-			fieldType = Role.class,			
+						provideCode="@{roleDAO_v2}.getUserRoleList(${id})"),		
 			lazy = true)
 	private List<Role> roles;
 	
