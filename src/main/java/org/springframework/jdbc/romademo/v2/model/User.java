@@ -118,6 +118,12 @@ public class User {
 						provideCode="@{roleDAO_v2}.getUserRoleList(${id})"),		
 			lazy = true)
 	private List<Role> roles;
+	@RowMapperObjectField(
+			provideViaSpringProvider = 
+				@RowMapperSpringProvider(
+						provideCode="@{creditCardInfoDAO_v2}.getUserCreditCardInfo(${id})"),		
+			lazy = true)
+	private CreditCardInfo creditCardInfo;
 	
 	@RowMapperIgnoreField // Or define field as transient
 	private byte age;
@@ -266,6 +272,14 @@ public class User {
 		roles.remove(role);
 	}
 	
+	public CreditCardInfo getCreditCardInfo() {
+		return creditCardInfo;
+	}
+	
+	public void setCreditCardInfo(CreditCardInfo creditCardInfo) {
+		this.creditCardInfo = creditCardInfo;
+	}
+	
 	public byte getAge() {
 		return age;
 	}
@@ -277,22 +291,23 @@ public class User {
 	@Override
 	public String toString() {
 		return 
-				"Username       : " + username 			+ "\n" +
-				"Password       : " + password 			+ "\n" +
-				"First Name     : " + firstname 		+ "\n" +
-				"Last Name      : " + lastname 			+ "\n" +
-				"Phone Number   : " + phoneNumber 		+ "\n" +
-				"Address        : " + address 			+ "\n" +
-				"Enabled        : " + enabled 			+ "\n" +
-				"Gender         : " + gender 			+ "\n" +
-				"Birth Date     : " + birthDate 		+ "\n" +
-				"Language       : " + language 			+ "\n" +
-				"Occupation     : " + occupation 		+ "\n" +
-				"Education      : " + education 		+ "\n" +
-				"Blood Type     : " + bloodType			+ "\n" +
-				"Marital Status : " + maritalStatus		+ "\n" +
-				"Religion       : " + religion			+ "\n" +
-				"Age            : " + age;
+				"Username         : " + username 			+ "\n" +
+				"Password         : " + password 			+ "\n" +
+				"First Name       : " + firstname 			+ "\n" +
+				"Last Name        : " + lastname 			+ "\n" +
+				"Phone Number     : " + phoneNumber 		+ "\n" +
+				"Address          : " + address 			+ "\n" +
+				"Enabled          : " + enabled 			+ "\n" +
+				"Gender           : " + gender 				+ "\n" +
+				"Birth Date       : " + birthDate 			+ "\n" +
+				"Language         : " + language 			+ "\n" +
+				"Occupation       : " + occupation 			+ "\n" +
+				"Education        : " + education 			+ "\n" +
+				"Blood Type       : " + bloodType			+ "\n" +
+				"Marital Status   : " + maritalStatus		+ "\n" +
+				"Religion         : " + religion			+ "\n" +
+				"Credit Card Info : " + creditCardInfo		+ "\n" +
+				"Age              : " + age;
 	}
 	
 }

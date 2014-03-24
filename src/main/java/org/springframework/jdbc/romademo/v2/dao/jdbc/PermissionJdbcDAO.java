@@ -55,8 +55,8 @@ public class PermissionJdbcDAO extends BaseJdbcDAO implements PermissionDAO {
 	@Override
 	public void add(Permission perm) throws Exception {
 		jdbcTemplate.update(
-			"INSERT INTO PERMISSION (id, name) " + 
-			"VALUES (?, ?) ", 
+			"INSERT INTO PERMISSION (name) " + 
+			"VALUES (?) ", 
 			perm.getId(), perm.getName());
 	}
 
@@ -78,16 +78,15 @@ public class PermissionJdbcDAO extends BaseJdbcDAO implements PermissionDAO {
 
 	@Override
 	public void addRolePermission(Long roleId, Permission perm) throws Exception {
-		if(roleId != null)
-			jdbcTemplate.update(
-				"INSERT INTO ROLE_PERMISSION (role_id, permission_id) " + 
-				"VALUES (?, ?) ", roleId, perm.getId());
+		jdbcTemplate.update(
+			"INSERT INTO ROLE_PERMISSION (role_id, permission_id) " + 
+			"VALUES (?, ?) ", roleId, perm.getId());
 	}
 
 	@Override
 	public List<Permission> getUserPermissionList(Long userId) {
 		return 
-				jdbcTemplate.query(
+			jdbcTemplate.query(
 					"SELECT p.* FROM PERMISSION p WHERE p.id IN " +
 					"(" +
 						"SELECT rp.permission_id FROM ROLE_PERMISSION rp WHERE rp.role_id IN " +

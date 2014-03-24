@@ -73,10 +73,9 @@ public class RoleJdbcDAO extends BaseJdbcDAO implements RoleDAO {
 
 	@Override
 	public void addUserRole(Long userId, Role role) throws Exception {
-		if(userId != null)
-			jdbcTemplate.update(
-				"INSERT INTO USER_ROLE (user_id, role_id) VALUES (?, ?) ", 
-				userId, role.getId());
+		jdbcTemplate.update(
+			"INSERT INTO USER_ROLE (user_id, role_id) VALUES (?, ?) ", 
+			userId, role.getId());
 	}
 
 }

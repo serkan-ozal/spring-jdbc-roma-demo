@@ -38,7 +38,7 @@ public class RowMapperDemo {
 		StringBuffer sb = new StringBuffer();
 		for (User u : userDAO.list()) {
 			sb.append("User:\n" + "\t" + u.toString().replace("\n", "\n\t")).append("\n");
-			sb.append("\tRoles          : ").append("\n");
+			sb.append("\tRoles            : ").append("\n");
 			for (Role r : u.getRoles()) {
 				sb.append("\t\t" + "Role Name: " + r.getName()).append("\n");
 				for (Permission p : r.getPermissions()) {
