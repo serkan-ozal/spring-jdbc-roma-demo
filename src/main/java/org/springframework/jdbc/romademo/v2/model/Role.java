@@ -19,8 +19,10 @@ package org.springframework.jdbc.romademo.v2.model;
 import java.util.List;
 
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSqlProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperExpressionBasedLazyConditionProvider;
 import org.springframework.jdbc.romademo.v2.custom.RoleObjectCreater;
 
 /**
@@ -40,7 +42,12 @@ public class Role {
 	                        "SELECT rp.PERMISSION_ID FROM role_permission rp WHERE rp.ROLE_ID = ${id}" +
 	                    ") ORDER BY p.name",
 	                entityType = Permission.class),	    
-	        lazy = true)
+	        lazy = true,
+	        lazyCondition = 
+				@RowMapperLazyCondition(
+						provideViaExpressionBasedProvider = 
+							@RowMapperExpressionBasedLazyConditionProvider(
+									expression = "${name}.equals(\"Member\")")))
 	private List<Permission> permissions;
 	
 	public Long getId() {

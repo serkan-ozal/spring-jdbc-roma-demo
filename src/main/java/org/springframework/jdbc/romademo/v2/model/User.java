@@ -29,6 +29,9 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnu
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumStringValueNumericMapping;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperImplementationProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperPropertyBasedLazyConditionProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperCustomLazyConditionProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSpringProvider;
 import org.springframework.jdbc.romademo.common.model.Address;
@@ -41,6 +44,7 @@ import org.springframework.jdbc.romademo.common.model.Occupation;
 import org.springframework.jdbc.romademo.common.model.Religion;
 import org.springframework.jdbc.romademo.v2.custom.UserObjectProcessor;
 import org.springframework.jdbc.romademo.v2.custom.UserPhoneNumberObjectFieldProcessor;
+import org.springframework.jdbc.romademo.v2.custom.UserRolesLazyConditionProvider;
 import org.springframework.jdbc.romademo.v2.mapper.BloodTypeEnumMapper;
 import org.springframework.jdbc.romademo.v2.mapper.MaritalStatusEnumMapper;
 
@@ -115,15 +119,36 @@ public class User {
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
-						provideCode="@{roleDAO_v2}.getUserRoleList(${id})"),		
-			lazy = true)
+						provideCode = "@{roleDAO_v2}.getUserRoleList(${id})"),		
+			lazy = true,
+			lazyCondition = 
+			@RowMapperLazyCondition(
+					provideViaCustomProvider = 
+						@RowMapperCustomLazyConditionProvider(
+								lazyConditionProvider = UserRolesLazyConditionProvider.class)))
 	private List<Role> roles;
 	@RowMapperObjectField(
 			provideViaSpringProvider = 
 				@RowMapperSpringProvider(
-						provideCode="@{creditCardInfoDAO_v2}.getUserCreditCardInfo(${id})"),		
-			lazy = true)
+						provideCode = "@{creditCardInfoDAO_v2}.getUserCreditCardInfo(${id})"),		
+			lazy = true,
+			lazyCondition = 
+			@RowMapperLazyCondition(
+					provideViaPropertyBasedProvider = 
+						@RowMapperPropertyBasedLazyConditionProvider(
+								propertyName = "creditCardInfoLazyCondition")))
 	private CreditCardInfo creditCardInfo;
+	@RowMapperObjectField(
+			provideViaSpringProvider = 
+				@RowMapperSpringProvider(
+						provideCode = "@{creditCardInfoDAO_v2}.getUserSecondaryCreditCardInfo(${id})"),		
+			lazy = true,
+			lazyCondition = 
+			@RowMapperLazyCondition(
+					provideViaPropertyBasedProvider = 
+						@RowMapperPropertyBasedLazyConditionProvider(
+								propertyName = "creditCardInfoLazyCondition")))
+	private CreditCardInfo secondaryCreditCardInfo;
 	
 	@RowMapperIgnoreField // Or define field as transient
 	private byte age;
@@ -280,6 +305,14 @@ public class User {
 		this.creditCardInfo = creditCardInfo;
 	}
 	
+	public CreditCardInfo getSecondaryCreditCardInfo() {
+		return secondaryCreditCardInfo;
+	}
+	
+	public void setSecondaryCreditCardInfo(CreditCardInfo secondaryCreditCardInfo) {
+		this.secondaryCreditCardInfo = secondaryCreditCardInfo;
+	}
+	
 	public byte getAge() {
 		return age;
 	}
@@ -291,23 +324,24 @@ public class User {
 	@Override
 	public String toString() {
 		return 
-				"Username         : " + username 			+ "\n" +
-				"Password         : " + password 			+ "\n" +
-				"First Name       : " + firstname 			+ "\n" +
-				"Last Name        : " + lastname 			+ "\n" +
-				"Phone Number     : " + phoneNumber 		+ "\n" +
-				"Address          : " + address 			+ "\n" +
-				"Enabled          : " + enabled 			+ "\n" +
-				"Gender           : " + gender 				+ "\n" +
-				"Birth Date       : " + birthDate 			+ "\n" +
-				"Language         : " + language 			+ "\n" +
-				"Occupation       : " + occupation 			+ "\n" +
-				"Education        : " + education 			+ "\n" +
-				"Blood Type       : " + bloodType			+ "\n" +
-				"Marital Status   : " + maritalStatus		+ "\n" +
-				"Religion         : " + religion			+ "\n" +
-				"Credit Card Info : " + creditCardInfo		+ "\n" +
-				"Age              : " + age;
+				"Username                   : " + username 					+ "\n" +
+				"Password                   : " + password 					+ "\n" +
+				"First Name                 : " + firstname 				+ "\n" +
+				"Last Name                  : " + lastname 					+ "\n" +
+				"Phone Number               : " + phoneNumber 				+ "\n" +
+				"Address                    : " + address 					+ "\n" +
+				"Enabled                    : " + enabled 					+ "\n" +
+				"Gender                     : " + gender 					+ "\n" +
+				"Birth Date                 : " + birthDate 				+ "\n" +
+				"Language                   : " + language 					+ "\n" +
+				"Occupation                 : " + occupation 				+ "\n" +
+				"Education                  : " + education 				+ "\n" +
+				"Blood Type                 : " + bloodType					+ "\n" +
+				"Marital Status             : " + maritalStatus				+ "\n" +
+				"Religion                   : " + religion					+ "\n" +
+				"Credit Card Info           : " + creditCardInfo			+ "\n" +
+				"Secondary Credit Card Info : " + secondaryCreditCardInfo	+ "\n" +
+				"Age                        : " + age;
 	}
 	
 }

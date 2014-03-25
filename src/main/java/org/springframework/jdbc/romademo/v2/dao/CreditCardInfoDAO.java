@@ -30,5 +30,6 @@ public interface CreditCardInfoDAO {
 	public List<CreditCardInfo> list();
 	public void addUserCreditCardInfo(Long userId, CreditCardInfo creditCardInfo) throws Exception;
 	public CreditCardInfo getUserCreditCardInfo(Long userId);
+	public CreditCardInfo getUserSecondaryCreditCardInfo(Long userId);
 
 }

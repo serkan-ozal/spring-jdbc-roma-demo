@@ -16,8 +16,12 @@
 
 package org.springframework.jdbc.romademo.v2;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.roma.impl.service.RowMapperService;
 import org.springframework.jdbc.romademo.v2.dao.UserDAO;
 import org.springframework.jdbc.romademo.v2.model.Permission;
 import org.springframework.jdbc.romademo.v2.model.Role;
@@ -28,15 +32,24 @@ import org.springframework.jdbc.romademo.v2.model.User;
  */
 public class RowMapperDemo {
 
+	private static final Logger logger = Logger.getLogger(RowMapperDemo.class);
+	
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("/roma-demo-context-v2.xml");
 		
 		// DB is initialized by DbAwareBeanPostProcessor
 		
 		final UserDAO userDAO = context.getBean(UserDAO.class);
+		final RowMapperService rowMapperService = context.getBean(RowMapperService.class);
+		
+		rowMapperService.enableLazyConditionProperty("creditCardInfoLazyCondition");
+		
+		List<User> userList = userDAO.list();
+		
+		logger.info("All users have been listed from database");
 		
 		StringBuffer sb = new StringBuffer();
-		for (User u : userDAO.list()) {
+		for (User u : userList) {
 			sb.append("User:\n" + "\t" + u.toString().replace("\n", "\n\t")).append("\n");
 			sb.append("\tRoles            : ").append("\n");
 			for (Role r : u.getRoles()) {
@@ -47,6 +60,8 @@ public class RowMapperDemo {
 			}
 		}
 		System.out.println(sb.toString());
+		
+		rowMapperService.disableLazyConditionProperty("creditCardInfoLazyCondition");
 	}
 
 }

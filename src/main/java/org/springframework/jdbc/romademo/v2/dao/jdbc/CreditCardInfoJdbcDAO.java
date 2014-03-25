@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperPropertyBasedLazyConditionAware;
 import org.springframework.jdbc.romademo.common.dao.BaseJdbcDAO;
 import org.springframework.jdbc.romademo.v2.dao.CreditCardInfoDAO;
 import org.springframework.jdbc.romademo.v2.model.CreditCardInfo;
@@ -43,6 +44,7 @@ public class CreditCardInfoJdbcDAO extends BaseJdbcDAO implements CreditCardInfo
 	@Override
 	public CreditCardInfo get(Long id) {
 		try {
+			logger.debug("Getting credit card info with id " + id);
 			return 
 				jdbcTemplate.queryForObject(
 					"SELECT c.* FROM CREDIT_CARD_INFO c WHERE c.id = ?", creditCardInfoRowMapper, id);
@@ -62,6 +64,7 @@ public class CreditCardInfoJdbcDAO extends BaseJdbcDAO implements CreditCardInfo
 
 	@Override
 	public List<CreditCardInfo> list() {
+		logger.debug("Listing all credit card infos");
 		return jdbcTemplate.query("SELECT c.* FROM CREDIT_CARD_INFO c", creditCardInfoRowMapper);
 	}
 
@@ -74,11 +77,28 @@ public class CreditCardInfoJdbcDAO extends BaseJdbcDAO implements CreditCardInfo
 
 	@Override
 	public CreditCardInfo getUserCreditCardInfo(Long userId) {
+		logger.debug("Getting credit card info for user with id " + userId);
 		return 
 			jdbcTemplate.queryForObject(
 					"SELECT c.* FROM CREDIT_CARD_INFO c WHERE c.id = " +
 					"(" +
 						"SELECT uc.credit_card_info_id FROM USER_CREDIT_CARD_INFO uc WHERE uc.user_id = " + userId +
+					")", 
+					creditCardInfoRowMapper);
+	}
+	
+	@Override
+	@RowMapperPropertyBasedLazyConditionAware(
+			propertyName = "creditCardInfoLazyCondition",
+			options = 	RowMapperPropertyBasedLazyConditionAware.ENABLE_ON_START | 
+						RowMapperPropertyBasedLazyConditionAware.DISABLE_ON_FINISH)
+	public CreditCardInfo getUserSecondaryCreditCardInfo(Long userId) {
+		logger.debug("Getting secondary credit card info for user with id " + userId);
+		return 
+			jdbcTemplate.queryForObject(
+					"SELECT c.* FROM CREDIT_CARD_INFO c WHERE c.id = " +
+					"(" +
+						"SELECT uc.credit_card_info_id FROM USER_SECONDARY_CREDIT_CARD_INFO uc WHERE uc.user_id = " + userId +
 					")", 
 					creditCardInfoRowMapper);
 	}
