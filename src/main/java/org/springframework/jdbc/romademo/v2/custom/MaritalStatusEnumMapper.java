@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.springframework.jdbc.romademo.v2.mapper;
+package org.springframework.jdbc.romademo.v2.custom;
 
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField;
-import org.springframework.jdbc.romademo.common.model.BloodType;
+import org.springframework.jdbc.romademo.common.model.MaritalStatus;
 
 /**
  * @author Serkan ÖZAL
  */
-public class BloodTypeEnumMapper implements RowMapperEnumField.NumericEnumMapper<BloodType> {
+public class MaritalStatusEnumMapper implements RowMapperEnumField.StringEnumMapper<MaritalStatus> {
 
 	@Override
-	public BloodType map(Integer value) {
-		for (BloodType bt : BloodType.values()) {
-			if (bt.getCode() == value) {
-				return bt;
+	public MaritalStatus map(String value) {
+		for (MaritalStatus ms : MaritalStatus.values()) {
+			if (ms.name().equalsIgnoreCase(value)) {
+				return ms;
 			}
 		}
 		return null;

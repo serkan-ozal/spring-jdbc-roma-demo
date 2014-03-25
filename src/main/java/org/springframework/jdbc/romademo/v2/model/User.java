@@ -42,11 +42,11 @@ import org.springframework.jdbc.romademo.common.model.Language;
 import org.springframework.jdbc.romademo.common.model.MaritalStatus;
 import org.springframework.jdbc.romademo.common.model.Occupation;
 import org.springframework.jdbc.romademo.common.model.Religion;
+import org.springframework.jdbc.romademo.v2.custom.BloodTypeEnumMapper;
+import org.springframework.jdbc.romademo.v2.custom.MaritalStatusEnumMapper;
 import org.springframework.jdbc.romademo.v2.custom.UserObjectProcessor;
 import org.springframework.jdbc.romademo.v2.custom.UserPhoneNumberObjectFieldProcessor;
 import org.springframework.jdbc.romademo.v2.custom.UserRolesLazyConditionProvider;
-import org.springframework.jdbc.romademo.v2.mapper.BloodTypeEnumMapper;
-import org.springframework.jdbc.romademo.v2.mapper.MaritalStatusEnumMapper;
 
 /**
  * @author Serkan ÖZAL
