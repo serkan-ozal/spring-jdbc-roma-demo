@@ -79,14 +79,14 @@ public class User {
 			mapViaAutoMapper = 
 				@RowMapperEnumAutoMapper(
 						mapViaNumericValueNumericMappings = {
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 0 , value = 0),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 1 , value = 100),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 2 , value = 200),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 3 , value = 300),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 4 , value = 400),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 5 , value = 500),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 6 , value = 600),
-								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 7 , value = 700)
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 0, value = 0),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 1, value = 100),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 2, value = 200),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 3, value = 300),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 4, value = 400),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 5, value = 500),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 6, value = 600),
+								@RowMapperEnumNumericValueNumericMapping(mappingIndex = 7, value = 700)
 						}))
 	private Occupation occupation;
 	@RowMapperEnumField(
@@ -98,7 +98,7 @@ public class User {
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 2, value = "HIGH_SCHOOL"),
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 3, value = "BACHELOR"),
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 4, value = "MASTER"),
-								@RowMapperEnumStringValueNumericMapping(mappingIndex = 5, value = "PHD" ),
+								@RowMapperEnumStringValueNumericMapping(mappingIndex = 5, value = "PHD"),
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 6, value = "ASSOCIATE_PROFESSOR"),
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 7, value = "PROFESSOR"),
 								@RowMapperEnumStringValueNumericMapping(mappingIndex = 8, value = "OTHER")
