@@ -45,8 +45,8 @@ import org.springframework.jdbc.romademo.common.model.Religion;
 import org.springframework.jdbc.romademo.v2.custom.BloodTypeEnumMapper;
 import org.springframework.jdbc.romademo.v2.custom.MaritalStatusEnumMapper;
 import org.springframework.jdbc.romademo.v2.custom.UserObjectProcessor;
-import org.springframework.jdbc.romademo.v2.custom.UserPhoneNumberObjectFieldProcessor;
 import org.springframework.jdbc.romademo.v2.custom.UserRolesLazyConditionProvider;
+import org.springframework.jdbc.romademo.v2.custom.UserPhoneNumberFieldMapper;
 
 /**
  * @author Serkan ÖZAL
@@ -62,7 +62,7 @@ public class User {
 	@RowMapperObjectField(
 		provideViaCustomProvider = 
 			@RowMapperCustomProvider(
-					objectFieldProcessor = UserPhoneNumberObjectFieldProcessor.class))
+					fieldMapper = UserPhoneNumberFieldMapper.class))
 	private String phoneNumber;
 	@RowMapperObjectField(
 		provideViaImplementationProvider = 

@@ -19,21 +19,24 @@ package org.springframework.jdbc.romademo.v2.custom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider.RowMapperObjectFieldProcessor;
-import org.springframework.jdbc.romademo.v2.model.User;
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperField.RowMapperFieldMapper;
+import org.springframework.jdbc.romademo.v2.model.Role;
 
 /**
  * @author Serkan ÖZAL
  */
-public class UserPhoneNumberObjectFieldProcessor implements RowMapperObjectFieldProcessor<User> {
+public class RoleNameFieldMapper implements RowMapperFieldMapper<Role> {
 
+	private static final Logger logger = Logger.getLogger(RoleNameFieldMapper.class);
+	
 	@Override
-	public void processObjectField(User user, String fieldName, ResultSet rs, int rowNum) {
+	public void mapField(Role role, String fieldName, ResultSet rs, int rowNum) {
 		try {
-			user.setPhoneNumber(rs.getString("phone_number"));
+			role.setName(rs.getString("name"));
 		} 
 		catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Error occured while mapping field " + fieldName + " in Role object from resultset", e);
 		}
 	}
 

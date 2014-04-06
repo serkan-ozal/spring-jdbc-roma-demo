@@ -19,10 +19,12 @@ package org.springframework.jdbc.romademo.v2.model;
 import java.util.List;
 
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSqlProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperExpressionBasedLazyConditionProvider;
+import org.springframework.jdbc.romademo.v2.custom.RoleNameFieldMapper;
 import org.springframework.jdbc.romademo.v2.custom.RoleObjectCreater;
 
 /**
@@ -32,6 +34,7 @@ import org.springframework.jdbc.romademo.v2.custom.RoleObjectCreater;
 public class Role {
 
 	private Long id;
+	@RowMapperField(fieldMapper = RoleNameFieldMapper.class)
 	private String name;
 	@RowMapperObjectField(
 	        provideViaSqlProvider = 
