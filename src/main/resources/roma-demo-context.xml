@@ -16,6 +16,8 @@
     
     <import resource="classpath*:roma-context.xml"/>
 
+    <context:component-scan base-package="org.springframework.jdbc.roma.demo"/>
+    
     <bean id="defaultConfigs" class="org.springframework.jdbc.roma.api.config.DefaultConfigs">
 		<property name="defaultDataSourceName" value="dataSource"/>
 	</bean>
