@@ -20,23 +20,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperField.RowMapperFieldMapper;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider.RowMapperFieldProvider;
 import org.springframework.jdbc.roma.demo.model.User;
 
 /**
  * @author Serkan ÖZAL
  */
-public class UserPhoneNumberFieldMapper implements RowMapperFieldMapper<User> {
+public class UserPhoneNumberFieldProvider implements RowMapperFieldProvider<User, String> {
 
-	private final static Logger logger = Logger.getLogger(UserPhoneNumberFieldMapper.class);
+	private final static Logger logger = Logger.getLogger(UserPhoneNumberFieldProvider.class);
 	
 	@Override
-	public void mapField(User user, String fieldName, ResultSet rs, int rowNum) {
+	public String provideField(User user, String fieldName, ResultSet rs, int rowNum) {
 		try {
-			user.setPhoneNumber(rs.getString("phone_number"));
+			return rs.getString("phone_number");
 		} 
 		catch (SQLException e) {
 			logger.error("Error occured while mapping field " + fieldName + " in User object from resultset", e);
+			return null;
 		}
 	}
 

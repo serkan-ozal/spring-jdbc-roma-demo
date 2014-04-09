@@ -44,6 +44,8 @@ public class RowMapperDemo {
 		
 		rowMapperService.enableLazyConditionProperty("creditCardInfoLazyCondition");
 		
+		rowMapperService.enableIgnoreConditionProperty("creditCardInfoIgnoreCondition");
+		
 		List<User> userList = userDAO.list();
 		
 		logger.info("All users have been listed from database");
@@ -60,6 +62,8 @@ public class RowMapperDemo {
 			}
 		}
 		System.out.println(sb.toString());
+		
+		rowMapperService.disableIgnoreConditionProperty("creditCardInfoIgnoreCondition");
 		
 		rowMapperService.disableLazyConditionProperty("creditCardInfoLazyCondition");
 	}

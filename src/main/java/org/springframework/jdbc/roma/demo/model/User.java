@@ -32,11 +32,13 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgn
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperPropertyBasedLazyConditionProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperLazyCondition.RowMapperCustomLazyConditionProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreCondition;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgnoreCondition.RowMapperPropertyBasedIgnoreConditionProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.demo.custom.BloodTypeEnumMapper;
 import org.springframework.jdbc.roma.demo.custom.MaritalStatusEnumMapper;
 import org.springframework.jdbc.roma.demo.custom.UserObjectProcessor;
-import org.springframework.jdbc.roma.demo.custom.UserPhoneNumberFieldMapper;
+import org.springframework.jdbc.roma.demo.custom.UserPhoneNumberFieldProvider;
 import org.springframework.jdbc.roma.demo.custom.UserRolesLazyConditionProvider;
 
 /**
@@ -53,7 +55,7 @@ public class User {
 	@RowMapperObjectField(
 		provideViaCustomProvider = 
 			@RowMapperCustomProvider(
-					fieldMapper = UserPhoneNumberFieldMapper.class))
+					fieldProvider = UserPhoneNumberFieldProvider.class))
 	private String phoneNumber;
 	@RowMapperObjectField(
 		provideViaExpressionProvider = 
@@ -124,7 +126,7 @@ public class User {
 					expression = "@{creditCardInfoDAO}.getUserCreditCardInfo(${id})"),		
 			lazy = true,
 			lazyCondition = 
-			@RowMapperLazyCondition(
+				@RowMapperLazyCondition(
 					provideViaPropertyBasedProvider = 
 						@RowMapperPropertyBasedLazyConditionProvider(
 								propertyName = "creditCardInfoLazyCondition")))
@@ -140,6 +142,16 @@ public class User {
 						@RowMapperPropertyBasedLazyConditionProvider(
 								propertyName = "creditCardInfoLazyCondition")))
 	private CreditCardInfo secondaryCreditCardInfo;
+	@RowMapperObjectField(
+			provideViaExpressionProvider = 
+				@RowMapperExpressionProvider(
+					expression = "@{creditCardInfoDAO}.getUserCreditCardInfo(${id})"),		
+			ignoreCondition = 
+				@RowMapperIgnoreCondition(
+					provideViaPropertyBasedProvider = 
+						@RowMapperPropertyBasedIgnoreConditionProvider(
+								propertyName = "creditCardInfoIgnoreCondition")))
+	private CreditCardInfo previousCreditCardInfo;
 	
 	@RowMapperIgnoreField // Or define field as transient
 	private byte age;
@@ -304,6 +316,14 @@ public class User {
 		this.secondaryCreditCardInfo = secondaryCreditCardInfo;
 	}
 	
+	public CreditCardInfo getPreviousCreditCardInfo() {
+		return previousCreditCardInfo;
+	}
+	
+	public void setPreviousCreditCardInfo(CreditCardInfo previousCreditCardInfo) {
+		this.previousCreditCardInfo = previousCreditCardInfo;
+	}
+	
 	public byte getAge() {
 		return age;
 	}
@@ -332,6 +352,7 @@ public class User {
 				"Religion                   : " + religion					+ "\n" +
 				"Credit Card Info           : " + creditCardInfo			+ "\n" +
 				"Secondary Credit Card Info : " + secondaryCreditCardInfo	+ "\n" +
+				"Previous Credit Card Info  : " + previousCreditCardInfo	+ "\n" +
 				"Age                        : " + age;
 	}
 	
