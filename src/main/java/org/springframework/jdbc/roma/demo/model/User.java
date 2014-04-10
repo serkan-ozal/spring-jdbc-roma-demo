@@ -22,6 +22,7 @@ import java.util.List;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperClass;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperExpressionProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperCustomProvider;
+import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperSqlProvider;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumAutoMapper;
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperEnumField.RowMapperEnumNumericMapper;
@@ -37,6 +38,7 @@ import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperIgn
 import org.springframework.jdbc.roma.api.config.provider.annotation.RowMapperObjectField;
 import org.springframework.jdbc.roma.demo.custom.BloodTypeEnumMapper;
 import org.springframework.jdbc.roma.demo.custom.MaritalStatusEnumMapper;
+import org.springframework.jdbc.roma.demo.custom.UserAccountInfoSqlQueryInfoProvider;
 import org.springframework.jdbc.roma.demo.custom.UserObjectProcessor;
 import org.springframework.jdbc.roma.demo.custom.UserPhoneNumberFieldProvider;
 import org.springframework.jdbc.roma.demo.custom.UserRolesLazyConditionProvider;
@@ -152,6 +154,11 @@ public class User {
 						@RowMapperPropertyBasedIgnoreConditionProvider(
 								propertyName = "creditCardInfoIgnoreCondition")))
 	private CreditCardInfo previousCreditCardInfo;
+	@RowMapperObjectField(
+			provideViaSqlProvider = 
+				@RowMapperSqlProvider(
+					sqlQueryInfoProvider = UserAccountInfoSqlQueryInfoProvider.class))
+	private AccountInfo accountInfo;
 	
 	@RowMapperIgnoreField // Or define field as transient
 	private byte age;
@@ -324,6 +331,14 @@ public class User {
 		this.previousCreditCardInfo = previousCreditCardInfo;
 	}
 	
+	public AccountInfo getAccountInfo() {
+		return accountInfo;
+	}
+	
+	public void setAccountInfo(AccountInfo accountInfo) {
+		this.accountInfo = accountInfo;
+	}
+	
 	public byte getAge() {
 		return age;
 	}
@@ -353,6 +368,7 @@ public class User {
 				"Credit Card Info           : " + creditCardInfo			+ "\n" +
 				"Secondary Credit Card Info : " + secondaryCreditCardInfo	+ "\n" +
 				"Previous Credit Card Info  : " + previousCreditCardInfo	+ "\n" +
+				"Account Info               : " + accountInfo				+ "\n" +
 				"Age                        : " + age;
 	}
 	
